@@ -292,7 +292,7 @@ footer {
 
   <textarea placeholder="Tell us about your experience..."></textarea>
 
-  <button type="button">
+  <button type="button" onclick="addReview()">
 
     Submit Review
 
@@ -344,6 +344,62 @@ footer {
   © 2026 Inkd • Built for tattoo collectors and artists
 
 </footer>
+
+<script>
+
+function addReview() {
+alert("Button is working!");
+  const form = document.getElementById('reviewForm');
+
+  const artist = form.querySelector('input[placeholder="Artist name"]').value.trim();
+
+  const shop = form.querySelector('input[placeholder="Tattoo shop"]').value.trim();
+
+  const city = form.querySelector('input[placeholder="City, State"]').value.trim();
+
+  const rating = form.querySelector('select').value;
+
+  const review = form.querySelector('textarea').value.trim();
+
+  if (!artist || !shop || !city || !rating || !review) {
+
+    alert('Please fill out all fields.');
+
+    return;
+
+  }
+
+  const card = document.createElement('div');
+
+  card.className = 'card';
+
+  card.innerHTML = `
+
+    <div class="artist">${artist}</div>
+
+    <div class="shop">${shop} • ${city}</div>
+
+    <div class="stars">${'★'.repeat(Number(rating))}${'☆'.repeat(5 - Number(rating))}</div>
+
+    <div class="review">${review}</div>
+
+  `;
+
+  const heading = Array.from(document.querySelectorAll('h2'))
+
+    .find(h => h.textContent.trim() === 'Recent Reviews');
+
+  heading.insertAdjacentElement('afterend', card);
+
+  form.querySelectorAll('input, textarea').forEach(el => el.value = '');
+
+  form.querySelector('select').selectedIndex = 0;
+
+  alert('Review submitted!');
+
+}
+
+</script>
 
 </body>
 
